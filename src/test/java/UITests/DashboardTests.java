@@ -32,6 +32,9 @@ public class DashboardTests {
     private String visitDate = "11/30/2018";
     private String visitTime = "8:00 AM";
     private String expectedVisitDate = "11/30/2018";
+    private String dateBirth = "12/12/2001";
+    private String sex = "Male";
+    private String otherData = "He likes cats";
 
     @BeforeClass
     public static void login(){
@@ -67,7 +70,7 @@ public class DashboardTests {
         driver.get(URL);
         dashboardPage = new DashboardPage();
         newPatientPage = new NewPatientPage();
-        baselinePage = new BaselinePage();
+        baselinePage = new BaselinePage(driver);
 
         dashboardPage.clickAddPatient(driver);
         newPatientPage.enterPatientInitials(driver, patientInitials);
@@ -76,16 +79,42 @@ public class DashboardTests {
         newPatientPage.clickSaveButton(driver);
         pause(300);
         driver.findElement(By.xpath("//a[@id='PatientVisitsTabt_T1T']")).click();
-        baselinePage.enterVisitDate(driver, visitDate);
-        baselinePage.clickVisitTime(driver);
-        baselinePage.enterExpectedVisitDate(driver, expectedVisitDate);
-        baselinePage.saveButton(driver);
+        baselinePage.enterVisitDate( visitDate);
+        baselinePage.clickVisitTime();
+        baselinePage.enterExpectedVisitDate(expectedVisitDate);
         pause(300);
-        assertEquals("EDIT", baselinePage.editkButton(driver));
+        assertEquals("EDIT", baselinePage.editkButton());
+    }
+
+    @Test
+    public void enterDemographicsCRF(){
+        driver.get(URL);
+        dashboardPage = new DashboardPage();
+        newPatientPage = new NewPatientPage();
+        baselinePage = new BaselinePage(driver);
+
+        dashboardPage.clickAddPatient(driver);
+        newPatientPage.enterPatientInitials(driver, patientInitials);
+        newPatientPage.selectEnrolled(driver, enrolled);
+        newPatientPage.enterEnrollDate(driver, enrollDate);
+        newPatientPage.clickSaveButton(driver);
+        pause(300);
+
+        driver.findElement(By.xpath("//a[@id='PatientVisitsTabt_T1T']")).click();
+
+        baselinePage.enterDateOfBirth(dateBirth);
+        baselinePage.selectRace();
+        baselinePage.selectSex(sex);
+        baselinePage.enterOther(otherData);
+        baselinePage.saveButtonTwo();
+        pause(300);
+        assertEquals("EDIT", baselinePage.editkButtonTwo());
+
     }
 
     @Test
     public void createEmptyPatientCard(){
+        driver.get(URL);
         dashboardPage = new DashboardPage();
         newPatientPage = new NewPatientPage();
         dashboardPage.clickAddPatient(driver);
