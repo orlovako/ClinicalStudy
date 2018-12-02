@@ -23,6 +23,10 @@ public class DashboardPage extends HtmlElement {
         driver.findElement(By.xpath("//img[@alt='Add a New Patient']")).click();
     }
 
+    public static void pause(Integer time){
+        try{Thread.sleep(time);}
+        catch(InterruptedException ignored){}
+    }
 
 
 

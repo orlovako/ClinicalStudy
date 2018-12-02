@@ -1,4 +1,5 @@
 package UITests;
+import Pages.BaselinePage;
 import Pages.DashboardPage;
 import Pages.NewPatientPage;
 import org.junit.AfterClass;
@@ -8,6 +9,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.concurrent.TimeUnit;
+
+
+import static Pages.DashboardPage.pause;
 import static org.junit.Assert.assertEquals;
 
 public class DashboardTests {
@@ -20,10 +24,14 @@ public class DashboardTests {
 
     private DashboardPage dashboardPage;
     private NewPatientPage newPatientPage;
+    private BaselinePage baselinePage;
 
     private String patientInitials = "TB";
     private Boolean enrolled = true;
     private String enrollDate = "11/30/2018";
+    private String visitDate = "11/30/2018";
+    private String visitTime = "8:00 AM";
+    private String expectedVisitDate = "11/30/2018";
 
     @BeforeClass
     public static void login(){
@@ -52,6 +60,28 @@ public class DashboardTests {
         catch(InterruptedException ignored){}
 
         assertEquals("Patient Information - Subj A" + newPatientPage.getPatientNumber(driver), driver.findElement(By.xpath("//h2")).getText());
+    }
+
+    @Test
+    public void enterVisitInformation(){
+        driver.get(URL);
+        dashboardPage = new DashboardPage();
+        newPatientPage = new NewPatientPage();
+        baselinePage = new BaselinePage();
+
+        dashboardPage.clickAddPatient(driver);
+        newPatientPage.enterPatientInitials(driver, patientInitials);
+        newPatientPage.selectEnrolled(driver, enrolled);
+        newPatientPage.enterEnrollDate(driver, enrollDate);
+        newPatientPage.clickSaveButton(driver);
+        pause(300);
+        driver.findElement(By.xpath("//a[@id='PatientVisitsTabt_T1T']")).click();
+        baselinePage.enterVisitDate(driver, visitDate);
+        baselinePage.clickVisitTime(driver);
+        baselinePage.enterExpectedVisitDate(driver, expectedVisitDate);
+        baselinePage.saveButton(driver);
+        pause(300);
+        assertEquals("EDIT", baselinePage.editkButton(driver));
     }
 
     @Test

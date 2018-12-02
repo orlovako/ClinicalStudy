@@ -31,5 +31,9 @@ public class NewPatientPage extends HtmlElement {
         driver.findElement(By.xpath("//input[@id='EnrollDate_I']")).sendKeys(enrollDate);
     }
 
+    public void clickBaseline(WebDriver driver){
+        driver.findElement(By.xpath("//a[@id='PatientVisitsTabt_AT1T']")).click();
+    }
+
 
 }
