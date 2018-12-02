@@ -5,7 +5,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 public class BaselinePage {
-
     private WebDriver driver;
 
     public BaselinePage(WebDriver driver){
@@ -60,5 +59,42 @@ public class BaselinePage {
 
     public String editkButtonTwo(){
         return driver.findElement(By.xpath("//div[@id='btnEditDemog_CD']")).getText();
+    }
+
+    public void enterActualTime(){
+        driver.findElement(By.xpath("//div[@id='ActualTime_B-3']")).click();
+    }
+
+    public void enterHeight(String height){
+        driver.findElement(By.xpath("//input[@id='Height_I']")).sendKeys(height);
+    }
+
+    public void enterWeight(String weight){
+        driver.findElement(By.xpath("//input[@id='Weight_I']")).sendKeys(weight);
+    }
+
+    public void enterTemperature(String temperature){
+
+        driver.findElement(By.xpath("//input[@id='Temperature_I']")).sendKeys(temperature);
+    }
+
+    public void enterHeartRate(String heartRate){
+        driver.findElement(By.xpath("//input[@id='HeartRate_I']")).sendKeys(heartRate);
+    }
+
+    public void enterSystolicPressure(String sPressure){
+        driver.findElement(By.xpath("//input[@id='BloodPressureSystolic_I']")).sendKeys(sPressure);
+    }
+
+    public void enterDiastolicPressure(String dPressure){
+        driver.findElement(By.xpath("//input[@id='BloodPressureDiastolic_I']")).sendKeys(dPressure);
+    }
+
+    public void clickSaveButtonThree(){
+        driver.findElement(By.xpath("(//div[@class=\"dxbButton_DarkPink_ClinicalStudyTheme dxbButtonSys dxbTSys\"])[last()]")).click();
+    }
+
+    public String editkButtonThree(){
+        return driver.findElement(By.xpath("//div[@id='btnEditVitals_CD']")).getText();
     }
 }

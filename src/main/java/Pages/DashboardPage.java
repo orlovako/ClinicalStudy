@@ -13,16 +13,9 @@ public class DashboardPage extends HtmlElement {
     @FindBy(xpath="//img[@alt='Add a New Patient']")
     public WebElement addPatient;
 
-    @FindBy(xpath="//div[@id='btnSave_CD']")
-    public static WebElement saveButton;
-
-    @FindBy(xpath="//input[@id='PatientInitials_I']")
-    public TextInput patientInitials;
-
     public void clickAddPatient(WebDriver driver){
         driver.findElement(By.xpath("//img[@alt='Add a New Patient']")).click();
     }
-
     public static void pause(Integer time){
         try{Thread.sleep(time);}
         catch(InterruptedException ignored){}
